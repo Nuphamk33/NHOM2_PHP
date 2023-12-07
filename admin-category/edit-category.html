@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa danh mục</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            width: calc(100% - 12px);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: calc(100% - 12px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Sửa danh mục</h2>
+        <div class="form-group">
+            <label for="id">ID danh mục</label>
+            <input class="form-control" type="text" id="id" value="C1" disabled>
+        </div>
+        <div class="form-group">
+            <label for="tagname">Tên danh mục</label>
+            <input class="form-control" type="text" id="tagname" value="Thời sự">
+        </div>
+        <div class="form-group">
+            <label for="status">Trạng thái</label>
+            <select id="status" required>
+                <option value="active">Hiện</option>
+                <option value="inactive">Ẩn</option>
+            </select>
+        </div>
+        <button type="submit" name="submit">Lưu</button>
+    </div>
+</body>
+
+</html>
