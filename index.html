@@ -42,9 +42,6 @@
                                 </div>
                                 <div class="header-info-right">
                                     <ul class="header-social">    
-                                        <!-- <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                       <li> <a href="#"><i class="fab fa-youtube"></i></a></li> -->
                                        <li> <a href="thongtin.html"><i class="fas fa-user"></i></a></li>
                                        <li>
                                         <a href="NguyenPhucThinh"><span style="color: white; font-size: 13px;"> Đăng xuất</span></a>
@@ -107,11 +104,11 @@
                             <!-- tìm kiếm-->
                             <div class="col-xl-2 col-lg-2 col-md-4">
                                 <div class="header-right-btn f-right d-none d-lg-block">
-                                    <i class="fas fa-search special-tag"></i>
+                                    <i class="fas fa-search special-tag search-btn" ></i>
                                     <div class="search-box">
-                                        <form action="BE/timkiem.php">
-                                            <input type="text" placeholder="Search">
-                                            
+                                        <form action="">
+                                            <input type="text" placeholder="Search" name="search" class="input-search">
+                                            <button name="search-btn"></button>
                                         </form>
                                     </div>
                                 </div>
@@ -982,7 +979,7 @@
                         <div class="col-lg-6">
                             <div class="footer-copy-right">
                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Quynhh</a>
+   &copy;<script>document.write(new Date().getFullYear());</script> Thiết kế <i class="ti-heart" aria-hidden="true"></i> bởi <a href="https://colorlib.com" target="_blank">Nhóm 2</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                             </div>
                         </div>
@@ -1042,6 +1039,8 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
+
+        <script src="./search.js"></script>
         
     </body>
 </html>

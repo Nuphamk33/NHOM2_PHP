@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/news.css">
+    <title>News</title>
+</head>
+<body>
+    <div class="news-page-container">
+        <div class="news-page-content">
+            <div class="news-data-list"></div>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                const newsDataAfterSerach = localStorage.getItem("newsData");
+
+                if(newsDataAfterSerach){
+                    const decodeNewsData = JSON.parse(newsDataAfterSerach)
+                    const newsDataList = document.querySelector('.news-data-list')
+                    //render data
+                    const html = `
+                        <table>
+                            <tr>
+                                <th>category_id</th>
+                                <th>content</th>
+                                <th>date</th>
+                                <th>image</th>
+                                <th>news_id</th>
+                                <th>status_news</th>
+                                <th>summary</th>
+                                <th>title</th>
+                                <th>user_id</th>
+                            </tr>
+                            ${decodeNewsData && decodeNewsData.map((item, index) => {
+                                return `<tr key=${index}>
+                                        <th>${item.category_id}</th>
+                                        <th>${item.content}</th>
+                                        <th>${item.date}</th>
+                                        <th>${item.image}</th>
+                                        <th>${item.news_id}</th>
+                                        <th>${item.status_news}</th>
+                                        <th>${item.summary}</th>
+                                        <th>${item.title}</th>
+                                        <th>${item.user_id}</th>
+                                    </tr>
+                                    `
+                            })}
+                        </table>
+                    `
+
+                    newsDataList.innerHTML = html
+                }
+            })
+            </script>
+        </div>
+    </div>
+
+    <!-- <script src="./news.js"></script> -->
+</body>
+</html>
