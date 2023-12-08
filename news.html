@@ -4,58 +4,247 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="site.webmanifest">
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
     <link rel="stylesheet" href="./assets/css/news.css">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/ticker-style.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
     <title>News</title>
 </head>
 <body>
-    <div class="news-page-container">
-        <div class="news-page-content">
-            <div class="news-data-list"></div>
-            <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                const newsDataAfterSerach = localStorage.getItem("newsData");
+    <header>
+        <!-- Header Start -->
+       <div class="header-area">
+            <div class="main-header ">
+                <div class="header-top black-bg d-none d-md-block">
+                   <div class="container">
+                       <div class="col-xl-12">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="header-info-left">
+                                    <ul>     
+                                        <li><img src="assets/img/icon/header_icon1.png" alt="">24ºc, Sunny </li>
+                                        <li><img src="assets/img/icon/header_icon1.png" alt="">Monday, 4th December, 2023</li>
+                                    </ul>
+                                </div>
+                                <div class="header-info-right">
+                                    <ul class="header-social">    
+                                       <li> <a href="thongtin.html"><i class="fas fa-user"></i></a></li>
+                                       <li>
+                                        <a href="NguyenPhucThinh"><span style="color: white; font-size: 13px;"> Đăng xuất</span></a>
+                                        <!-- <span style="color: white; font-size: 13px;"> Đăng xuất</span> -->
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                       </div>
+                   </div>
+                </div>
+                <div class="header-mid d-none d-md-block">
+                   <div class="container">
+                        <div class="row d-flex align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-3 col-lg-3 col-md-3">
+                                <div class="logo">
+                                    <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md-9">
+                                <div class="header-banner f-right ">
+                                    <img src="assets/img/hero/header_card.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+               <div class="header-bottom header-sticky">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
+                                <!-- sticky -->
+                                    <div class="sticky-logo">
+                                        <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                    </div>
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-md-block">
+                                    <nav>                  
+                                        <ul id="navigation">    
+                                            <li><a href="index.html">Trang chủ</a></li>
+                                            <li><a href="#">Danh mục</a>
+                                                <ul class="submenu">
+                                                    <li><a href="">Thời sự</a></li>
+                                                    <li><a href="">Giải trí</a></li>
+                                                    <li><a href="">Thể thao</a></li>
+                                                    <li><a href="">Giáo dục</a></li>
+                                                    <li><a href="">Sức khỏe</a></li>
+                                                </ul>
+                                            </li>
+                                            <!-- <li><a href="categori.html">Category</a></li> -->
+                                            <li><a href="about.html">Về chúng tôi</a></li>
+                                            <!-- <li><a href="latest_news.html">Latest News</a></li> -->
+                                            <li><a href="contact.html">Liên hệ</a></li>
+                                            
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>    
+                            
+                            <!-- Mobile Menu -->
+                            
+                        </div>
+                    </div>
+               </div>
+            </div>
+       </div>
+        <!-- Header End -->
+    </header>
+    <div class="trending-area fix">
+        <div class="container">
+            <div class="news-page-container">
+                <div class="news-page-content">
+                    <div class="news-data-list"></div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                        const newsDataAfterSerach = localStorage.getItem("newsData");
 
-                if(newsDataAfterSerach){
-                    const decodeNewsData = JSON.parse(newsDataAfterSerach)
-                    const newsDataList = document.querySelector('.news-data-list')
-                    //render data
-                    const html = `
-                        <table>
-                            <tr>
-                                <th>category_id</th>
-                                <th>content</th>
-                                <th>date</th>
-                                <th>image</th>
-                                <th>news_id</th>
-                                <th>status_news</th>
-                                <th>summary</th>
-                                <th>title</th>
-                                <th>user_id</th>
-                            </tr>
-                            ${decodeNewsData && decodeNewsData.map((item, index) => {
-                                return `<tr key=${index}>
-                                        <th>${item.category_id}</th>
-                                        <th>${item.content}</th>
-                                        <th>${item.date}</th>
-                                        <th>${item.image}</th>
-                                        <th>${item.news_id}</th>
-                                        <th>${item.status_news}</th>
-                                        <th>${item.summary}</th>
-                                        <th>${item.title}</th>
-                                        <th>${item.user_id}</th>
+                        if(newsDataAfterSerach){
+                            const decodeNewsData = JSON.parse(newsDataAfterSerach)
+                            const newsDataList = document.querySelector('.news-data-list')
+                            //render data
+                            const html = `
+                                <table>
+                                    <tr>
+                                        <th>category_id</th>
+                                        <th>content</th>
+                                        <th>date</th>
+                                        <th>image</th>
+                                        <th>news_id</th>
+                                        <th>status_news</th>
+                                        <th>summary</th>
+                                        <th>title</th>
+                                        <th>user_id</th>
                                     </tr>
-                                    `
-                            })}
-                        </table>
-                    `
+                                    ${decodeNewsData && decodeNewsData.map((item, index) => {
+                                        return `<tr key=${index}>
+                                                <th>${item.category_id}</th>
+                                                <th>${item.content}</th>
+                                                <th>${item.date}</th>
+                                                <th>${item.image}</th>
+                                                <th>${item.news_id}</th>
+                                                <th>${item.status_news}</th>
+                                                <th>${item.summary}</th>
+                                                <th>${item.title}</th>
+                                                <th>${item.user_id}</th>
+                                            </tr>
+                                            `
+                                    })}
+                                </table>
+                            `
 
-                    newsDataList.innerHTML = html
-                }
-            })
-            </script>
+                            newsDataList.innerHTML = html
+                        }
+                    })
+                    </script>
+                </div>
+            </div>
         </div>
     </div>
-
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding fix">
+             <div class="container">
+                 <div class="row d-flex justify-content-between">
+                     <div class="col-xl-5 col-lg-5 col-md-7 col-sm-12">
+                         <div class="single-footer-caption">
+                             <div class="single-footer-caption">
+                                 <!-- logo -->
+                                 <div class="footer-logo">
+                                     <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                 </div>
+                                 <div class="footer-tittle">
+                                     <div class="footer-pera">
+                                         <p>Tòa soạn: V101 79 Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội
+                                             Hotline: 19002810 (9-16h30) | 0929263744 (ngoài giờ HC)
+                                             © 2003 Tin tức mới nhất.
+                                             Chỉ được phát hành lại thông tin từ website này khi có sự
+                                             đồng ý bằng văn bản của báo Minh Nụ Quỳnh Thịnh.</p>
+                                     </div>
+                                 </div>
+                                 <!-- social -->
+                                 <div class="footer-social">
+                                     <a href="#"><i class="fab fa-facebook"></i></a>
+                                     <a href="#"><i class="fab fa-instagram"></i></a>
+                                     <a href="#"><i class="fab fa-youtube"></i></a>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-xl-3 col-lg-3 col-md-4  col-sm-6">
+                         <div class="single-footer-caption mt-60">
+                             <div class="footer-tittle">
+                                 <h4>Liên hệ quảng cáo</h4>
+                                 <p>Hotline: 0919 281 023</p>
+                                 <!-- Form -->
+                                 <div class="footer-form" >
+                                     <div id="mc_embed_signup">
+                                         <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                         method="get" class="subscribe_form relative mail_part">
+                                             <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
+                                             class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
+                                             onblur="this.placeholder = ' Email Address '">
+                                             <div class="form-icon">
+                                             <button type="submit" name="submit" id="newsletter-submit"
+                                             class="email_icon newsletter-submit button-contactForm"><img src="assets/img/logo/form-iocn.png" alt=""></button>
+                                             </div>
+                                             <div class="mt-10 info"></div>
+                                         </form>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+        <!-- footer-bottom aera -->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="footer-border">
+                     <div class="row d-flex align-items-center justify-content-between">
+                         <div class="col-lg-6">
+                             <div class="footer-copy-right">
+                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    &copy;<script>document.write(new Date().getFullYear());</script> Thiết kế <i class="ti-heart" aria-hidden="true"></i> bởi <a href="https://colorlib.com" target="_blank">Nhóm 2</a>
+   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                             </div>
+                         </div>
+                         <div class="col-lg-6">
+                             <div class="footer-menu f-right">
+                                 <ul>                             
+                                     <li><a href="#">Điều khoản sử dụng</a></li>
+                                     <li><a href="#">Chính sách quyền riêng tư</a></li>
+                                     <li><a href="#">Liên hệ</a></li>
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
     <!-- <script src="./news.js"></script> -->
+
 </body>
 </html>
