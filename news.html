@@ -99,7 +99,18 @@
                                     </nav>
                                 </div>
                             </div>    
-                            
+                            <!-- tìm kiếm-->
+                            <div class="col-xl-2 col-lg-2 col-md-4">
+                                <div class="header-right-btn f-right d-none d-lg-block">
+                                    <i class="fas fa-search special-tag search-btn" ></i>
+                                    <div class="search-box">
+                                        <form action="">
+                                            <input type="text" placeholder="Search" name="search" class="input-search">
+                                            <button name="search-btn"></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Mobile Menu -->
                             
                         </div>
@@ -109,8 +120,15 @@
        </div>
         <!-- Header End -->
     </header>
-    <div class="trending-area fix">
+    <div class="weekly2-news-area  weekly2-pading gray-bg">
         <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-tittle mb-30">
+                        <h3>Kết quả tìm kiếm :</h3>
+                    </div>
+                </div>
+            </div>
             <div class="news-page-container">
                 <div class="news-page-content">
                     <div class="news-data-list"></div>
@@ -124,37 +142,32 @@
                             //render data
                             const html = `
                                 <table>
-                                    <tr>
-                                        <th>category_id</th>
-                                        <th>content</th>
-                                        <th>date</th>
-                                        <th>image</th>
-                                        <th>news_id</th>
-                                        <th>status_news</th>
-                                        <th>summary</th>
-                                        <th>title</th>
-                                        <th>user_id</th>
-                                    </tr>
+                                    
                                     ${decodeNewsData && decodeNewsData.map((item, index) => {
-                                        return `<tr key=${index}>
-                                                <th>${item.category_id}</th>
-                                                <th>${item.content}</th>
-                                                <th>${item.date}</th>
-                                                <th>${item.image}</th>
-                                                <th>${item.news_id}</th>
-                                                <th>${item.status_news}</th>
-                                                <th>${item.summary}</th>
-                                                <th>${item.title}</th>
-                                                <th>${item.user_id}</th>
-                                            </tr>
+                                        return `
+                                            <div class="row" key=${index}>
+                                                <div class="col-12">
+                                                    <div class="weekly2-news-active dot-style d-flex dot-style">
+                                                        <div class="weekly2-single">
+                                                            <div class="weekly2-img">
+                                                                <img src="${item.image}" alt="">
+                                                            </div>
+                                                            <div class="weekly2-caption">
+                                                                <span class="color1">${item.status_news}</span>
+                                                                <p>${item.date}</p>
+                                                                <h4><a href="details.html">${item.title}</a></h4>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                </div> 
+                                            </div>
                                             `
                                     })}
                                 </table>
                             `
 
                             newsDataList.innerHTML = html
-                        }
-                    })
+                        }})
                     </script>
                 </div>
             </div>
