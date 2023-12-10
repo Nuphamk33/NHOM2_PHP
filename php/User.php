@@ -59,8 +59,15 @@ class User
             $_SESSION['email'] = $row2['email'];
             $_SESSION['phone_number'] = $row2['phone_number'];
 
-           
-            header("Location: /nhom2_php/infor.php");
+
+            $select_role = mysqli_query($conn, "SELECT * FROM roles WHERE user_id = '$userid' ") or die('query failed');
+            $row3= mysqli_fetch_assoc($select_role);       
+            $_SESSION['role'] = $row3['role'];
+       
+
+            if($_SESSION['role']=="admin"){
+            header("Location: /nhom2_php/TRANG QUAN TRI.php");
+            } else{ header("Location: /nhom2_php/infor.php"); }
         }else{
         echo $message[] = 'Tên đăng nhập hoặc mật khẩu không chính xác!';
         }
