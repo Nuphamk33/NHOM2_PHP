@@ -23,7 +23,7 @@
                      if (isset($_GET['searchTerm'])) {
                         // $searchTerm = $_GET['searchTerm'];
                         // $searchResults = $newsSearch->searchNewsByTitle($searchTerm);
-                        if (!empty($searchResults)) {
+                         if (!empty($searchResults)) {
                             foreach ($searchResults as $result) {
                                 echo '
                                 <div class="row">
@@ -42,7 +42,7 @@
                                         </div>
                                     </div> 
                                 </div>';
-                            }
+                             }
                         } else {
                             echo 'Không tìm thấy kết quả.';
                         }

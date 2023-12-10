@@ -106,29 +106,24 @@
                                 <div class="header-right-btn f-right d-none d-lg-block">
                                     <i class="fas fa-search special-tag Newssearch"></i>
                                     <div class="search-box">
-                                        <form action="index.php?" method="GET">
+                                        <form action="" method="GET">
                                             <input type="text" placeholder="Search" name="searchTerm" class="input-search">
-                                            <button type="submit" name="searchTerm"></button>
+                                            <button type="submit" name=""></button>
                                         </form>
                                     </div>
-                                    <!-- <form action="index.php?act=search">
-                                        <div class="NewsSearch">
-                                            <input type="text" placeholder="Search" name="searchTerm">
-                                            <button type="submit"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </form> -->
                                 </div>
                             </div>
 
                             <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    var searchButton = document.querySelector('.NewsSearch');
-                                    searchButton.addEventListener('click', function() {
-                                    console.log('Button clicked');
-                                    var searchForm = document.querySelector('.search-box .input-search');
-                                    searchForm.submit();
-                                    });
-                                });
+                                document.addEventListener('DOMContentLoaded', function()) {
+                                    var searchButton = document.querySelector('.Newssearch');
+                                        searchButton.addEventListener('click', function(event) {
+                                            event.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit
+                                            console.log('Button clicked');
+                                            var searchForm = document.querySelector('.search-box form');
+                                            searchForm.submit();
+                                        });
+                                }
                             </script>
                             <!-- Mobile Menu -->
                             <div class="col-12">
