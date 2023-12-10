@@ -1,3 +1,9 @@
+
+
+
+<?php  
+session_start(); ?>    
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -116,30 +122,63 @@
               <h2 class="primary-text">Thông tin tài khoản</h2>
             </div>
             <h6 class="d-flex justify-content-center d-none" style="color: red;">Tên đăng nhập đã tồn tại!</h6>
-            <form class="row mt-4 mb-4 mb-sm-5 align-items-center form-flat-style" action="backend/add.php?user"
-              method="post">
+           
+           
+           
+           
+           
+            <form class="row mt-4 mb-4 mb-sm-5 align-items-center form-flat-style" action="update.html" method="post">
               <div class="mb-3 col-sm-12">
-                <label class="form-label">Họ và tên:</label>
-                <input type="text" class="form-control" name="name" required>
+                <label class="form-label">Họ và tên:</label> 
+
+                <p style="background-color:#53A079; color:white ;border-radius:6px"> 
+                   <?php
+                    echo "|     "; 
+                    echo $_SESSION['full_name']; ?>    
+                </p>
+                
               </div>
               <div class="mb-3 col-sm-12">
                 <label class="form-label">Tên đăng nhập:</label>
-                <input type="text" class="form-control" name="user_name" required>
+                <p style="background-color:#53A079; color:white ;border-radius:6px"> 
+                   <?php
+                    echo "|     "; 
+                    echo $_SESSION['username']; ?>    
+                </p>            
+                
               </div>
               <div class="mb-3 col-sm-12">
                 <label class="form-label">Email:</label>
-                <input type="text" class="form-control" name="email" required>
+                <p style="background-color:#53A079; color:white ;border-radius:6px"> 
+                   <?php
+                   echo "|     "; 
+                    echo $_SESSION['email']; ?>    
+                </p>           
+
+              </div>
+              <div class="mb-3 col-sm-12">
+                <label class="form-label">Số điện thoại</label>
+                <p style="background-color:#53A079; color:white ;border-radius:6px"> 
+                   <?php
+                   echo "|     ";  
+                    echo $_SESSION['phone_number']; ?>    
+                </p>           
+
               </div>
               <div class="mb-3 col-sm-12">
                 <label class="form-label">Mật khẩu:</label>
-                <input type="Password" class="form-control" name="password" required>
+                <p style="background-color:#53A079; color:white ;border-radius:6px"> 
+                   <?php
+                   echo "|     ";  
+                    echo $_SESSION['password']; ?>    
+                </p>
+             
+                
               </div>
-              <!-- <div class="mb-3 col-sm-12">
-                        <label class="form-label">Xác thực mật khẩu:</label>
-                        <input type="Password" class="form-control" name="name">
-                      </div> -->
+
               <div class="col-sm-5 d-grid">
                 <button type="submit" class="btn btn-primary btn-flat">Chỉnh sửa</button>
+                
               </div>
               
             </form>
@@ -159,11 +198,11 @@
 
 
 
-
+  
 
 
   <footer>
-    <!-- Footer Start-->
+    <!-- Footer Start------------------------------------------------------------------------------->
     <div class="footer-area footer-padding fix">
          <div class="container">
              <div class="row d-flex justify-content-between">
