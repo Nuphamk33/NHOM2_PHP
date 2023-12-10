@@ -1,9 +1,16 @@
 <!doctype html>
-<html>
-<head>
-    <title>Tìm kiếm</title>
-    <!-- CSS here -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<html class="no-js" lang="zxx">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Tin mới giật gân đây </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="site.webmanifest">
+		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+		<!-- CSS here -->
+            <link rel="stylesheet" href="assets/css/bootstrap.min.css">
             <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
             <link rel="stylesheet" href="assets/css/ticker-style.css">
             <link rel="stylesheet" href="assets/css/flaticon.css">
@@ -15,9 +22,11 @@
             <link rel="stylesheet" href="assets/css/slick.css">
             <link rel="stylesheet" href="assets/css/nice-select.css">
             <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-<header>
+   </head>
+
+   <body>
+
+    <header>
         <!-- Header Start -->
        <div class="header-area">
             <div class="main-header ">
@@ -33,9 +42,9 @@
                                 </div>
                                 <div class="header-info-right">
                                     <ul class="header-social">    
-                                       <li> <a href="thongtin.html"><i class="fas fa-user"></i></a></li>
+                                       <li> <a href="index.php?act=thongtin"><i class="fas fa-user"></i></a></li>
                                        <li>
-                                        <a href="NguyenPhucThinh--sign-in.html"><span style="color: white; font-size: 13px;"> Đăng xuất</span></a>
+                                        <a href="NguyenPhucThinh"><span style="color: white; font-size: 13px;"> Đăng xuất</span></a>
                                         <!-- <span style="color: white; font-size: 13px;"> Đăng xuất</span> -->
                                         </li>
                                     </ul>
@@ -73,7 +82,7 @@
                                 <div class="main-menu d-none d-md-block">
                                     <nav>                  
                                         <ul id="navigation">    
-                                            <li><a href="index.html">Trang chủ</a></li>
+                                            <li><a href="index.php">Trang chủ</a></li>
                                             <li><a href="#">Danh mục</a>
                                                 <ul class="submenu">
                                                     <li><a href="">Thời sự</a></li>
@@ -83,10 +92,10 @@
                                                     <li><a href="">Sức khỏe</a></li>
                                                 </ul>
                                             </li>
-                                            <!-- <li><a href="categori.html">Category</a></li> -->
-                                            <li><a href="about.html">Về chúng tôi</a></li>
-                                            <!-- <li><a href="latest_news.html">Latest News</a></li> -->
-                                            <li><a href="contact.html">Liên hệ</a></li>
+                                            
+                                            <li><a href="index.php?act=about">Về chúng tôi</a></li>
+                                            
+                                            <!-- <li><a href="contact.html">Liên hệ</a></li> -->
                                             
                                         </ul>
                                     </nav>
@@ -95,12 +104,32 @@
                             <!-- tìm kiếm-->
                             <div class="col-xl-2 col-lg-2 col-md-4">
                                 <div class="header-right-btn f-right d-none d-lg-block">
-                                <form method="GET" action="">
-                                    <input type="text" name="search_query" placeholder="Nhập từ khóa tìm kiếm">
-                                    <input type="submit" value="Tìm kiếm">
-                                </form>
+                                    <i class="fas fa-search special-tag Newssearch"></i>
+                                    <div class="search-box">
+                                        <form action="index.php?" method="GET">
+                                            <input type="text" placeholder="Search" name="searchTerm" class="input-search">
+                                            <button type="submit" name="searchTerm"></button>
+                                        </form>
+                                    </div>
+                                    <!-- <form action="index.php?act=search">
+                                        <div class="NewsSearch">
+                                            <input type="text" placeholder="Search" name="searchTerm">
+                                            <button type="submit"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </form> -->
                                 </div>
                             </div>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var searchButton = document.querySelector('.NewsSearch');
+                                    searchButton.addEventListener('click', function() {
+                                    console.log('Button clicked');
+                                    var searchForm = document.querySelector('.search-box .input-search');
+                                    searchForm.submit();
+                                    });
+                                });
+                            </script>
                             <!-- Mobile Menu -->
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-md-none"></div>
@@ -112,43 +141,3 @@
        </div>
         <!-- Header End -->
     </header>
-
-    <?php
-    // Kết nối tới cơ sở dữ liệu
-    $servername = "127.0.0.1:3307";
-    $username = "root";
-    $password = "";
-    $database = "webtintuc_n2";
-    $conn = mysqli_connect($servername, $username, $password, $database);
-
-    // Kiểm tra kết nối
-    if (!$conn) {
-        die("Kết nối cơ sở dữ liệu thất bại: " . mysqli_connect_error());
-    }
-
-    // Xử lý tìm kiếm
-    if (isset($_GET['search_query'])) {
-        $search_query = $_GET['search_query'];
-
-        // Truy vấn dữ liệu từ database
-        $sql = "SELECT * FROM news WHERE title LIKE '%$search_query%'";
-        $result = mysqli_query($conn, $sql);
-
-        // Kiểm tra kết quả truy vấn
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<h2>".$row['title']."</h2>";
-                echo "<img src='".$row['image']."' alt='Ảnh bài báo'>";
-                echo "<p>".$row['content']."</p>";
-                echo "<hr>";
-            }
-        } else {
-            echo "<h2>Không tìm thấy kết quả.</h2>";
-        }
-    }
-
-    // Đóng kết nối
-    mysqli_close($conn);
-    ?>
-</body>
-</html>

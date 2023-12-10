@@ -1,26 +1,49 @@
 <?php
-// Kết nối tới cơ sở dữ liệu
+
+class NewsSearch {
+    private $conn;
+
+    public function __construct($servername, $username, $password, $dbname) {
+        $this->conn = new mysqli($servername, $username, $password, $dbname);
+        if ($this->conn->connect_error) {
+            die("Kết nối tới cơ sở dữ liệu thất bại: " . $this->conn->connect_error);
+        }
+    }
+
+    public function search($searchTerm) {
+        $sql = "SELECT * FROM news WHERE title LIKE '%$searchTerm%'";
+        $result = $this->conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $newsList = array();
+            while ($row = $result->fetch_assoc()) {
+                $newsList[] = $row;
+            }
+            return $newsList;
+        } else {
+            return array();
+        }
+    }
+
+    public function closeConnection() {
+        $this->conn->close();
+    }
+}
+
+// Sử dụng class NewsSearch
 $servername = "127.0.0.1:3307";
 $username = "root";
 $password = "";
 $dbname = "webtintuc_n2";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Kết nối tới cơ sở dữ liệu thất bại: " . $conn->connect_error);
-}
-
-// Xử lý tìm kiếm
 if (isset($_POST['search'])) {
     $searchTerm = $_POST['searchTerm'];
 
-    // Truy vấn cơ sở dữ liệu để tìm kiếm bài báo theo tên
-    $sql = "SELECT * FROM news WHERE title LIKE '%$searchTerm%'";
-    $result = $conn->query($sql);
+    $newsSearch = new NewsSearch($servername, $username, $password, $dbname);
+    $results = $newsSearch->search($searchTerm);
 
-    if ($result->num_rows > 0) {
-        // Hiển thị danh sách bài báo
-        while ($row = $result->fetch_assoc()) {
+    if (!empty($results)) {
+        foreach ($results as $row) {
             ?>
             <div class="weekly2-single">
                 <div class="weekly2-img">
@@ -38,10 +61,10 @@ if (isset($_POST['search'])) {
     } else {
         echo "Không tìm thấy bài báo phù hợp.";
     }
+
+    $newsSearch->closeConnection();
 }
 
-// Đóng kết nối cơ sở dữ liệu
-$conn->close();
 ?>
 
 <!-- Form tìm kiếm -->
