@@ -61,6 +61,25 @@
         button[type="submit"]:hover {
             background-color: #2980b9;
         }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -83,10 +102,34 @@
             </select>
         </div>
         <div class="btn-group">
-            <button class="btn btn-save" type="submit" style="background-color: rgb(166 236 171); color: rgb(1 123 10); font-weight: bold;">Lưu lại</button>
+            <button class="btn btn-save" type="submit" id="saveButton" style="background-color: rgb(166 236 171); color: rgb(1 123 10); font-weight: bold;">Lưu lại</button>
             <a class="btn btn-cancel" href="table-data-category.html" style="text-decoration: none;"><button type="submit" style="background-color: rgb(255 197 197); color: rgb(190, 40, 40); font-weight: bold;">Hủy bỏ</button></a>
+        </div>
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <p>Lưu thông tin thành công!</p>
+            </div>
         </div>
     </div>
 </body>
 
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const saveButton = document.getElementById("saveButton");
+    const popup = document.getElementById("popup");
+
+    saveButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        popup.style.display = "flex";
+
+        setTimeout(function () {
+            popup.style.display = "none";
+            window.location.href = "table-data-category.html";
+        }, 1000);
+    });
+});
+</script>
+
