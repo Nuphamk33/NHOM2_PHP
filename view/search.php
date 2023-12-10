@@ -18,9 +18,11 @@
                     // Kiểm tra xem đã có kết quả tìm kiếm hay chưa
                     // Sử dụng lớp NewsSearch để tìm kiếm dữ liệu
                      $newsSearch = new NewsSearch();
+                     $searchTerm = $_GET['searchTerm'];
+                    $searchResults = $newsSearch->searchNewsByTitle($searchTerm);
                      if (isset($_GET['searchTerm'])) {
-                        $searchTerm = $_GET['searchTerm'];
-                        $searchResults = $newsSearch->searchNewsByTitle($searchTerm);
+                        // $searchTerm = $_GET['searchTerm'];
+                        // $searchResults = $newsSearch->searchNewsByTitle($searchTerm);
                         if (!empty($searchResults)) {
                             foreach ($searchResults as $result) {
                                 echo '
@@ -34,7 +36,7 @@
                                                 <div class="weekly2-caption">
                                                     <span class="color1">' . $result['status_news'] . '</span>
                                                     <p>' . $result['date'] . '</p>
-                                                    <h4><a href="details.html">' . $result['title'] . '</a></h4>
+                                                    <h4><a href="index.php?act=details&news_id=">' . $result['title'] . '</a></h4>
                                                 </div>
                                             </div> 
                                         </div>
