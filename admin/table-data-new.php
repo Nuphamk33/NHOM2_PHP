@@ -51,24 +51,24 @@
     <hr>
     <ul class="app-menu">
 
-      <li><a class="app-menu__item " href="table-data-user.html"><i class='app-menu__icon bx bx-id-card'></i>
+      <li><a class="app-menu__item " href="table-data-user.php"><i class='app-menu__icon bx bx-id-card'></i>
           <span class="app-menu__label">Quản lý người dùng</span></a></li>
-      <li><a class="app-menu__item active" href="table-data-new.html"><i
+      <li><a class="app-menu__item active" href="table-data-new.php"><i
             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý tin tức</span></a>
       </li>
-      <li><a class="app-menu__item" href="table-data-category.html"><i class='app-menu__icon bx bx-task'></i><span
+      <li><a class="app-menu__item" href="table-data-category.php"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý danh mục</span></a></li>
-      <li><a class="app-menu__item" href="table-data-tag.html"><i class='app-menu__icon bx bx-run'></i><span
+      <li><a class="app-menu__item" href="table-data-tag.php"><i class='app-menu__icon bx bx-run'></i><span
             class="app-menu__label">Quản lý Tag
           </span></a></li>
-      <li><a class="app-menu__item" href="table-data-comment.html"><i class='app-menu__icon bx bx-dollar'></i><span
+      <li><a class="app-menu__item" href="table-data-comment.php"><i class='app-menu__icon bx bx-dollar'></i><span
             class="app-menu__label">Quản lý bình luận</span></a></li>
     </ul>
   </aside>
     <main class="app-content">
         <div class="app-title">
             <ul class="app-breadcrumb breadcrumb side">
-                <li class="breadcrumb-item active"><a href="#"><b>Danh sách tin tức</b></a></li>
+                <li class="breadcrumb-item active"><a href="table-data-new.php"><b>Danh sách tin tức</b></a></li>
             </ul>
             <div id="clock"></div>
         </div>
@@ -79,23 +79,16 @@
                     <div class="row element-button">
                         <div class="col-sm-2">
           
-                          <a class="btn btn-add btn-sm" href="add-new.html" title="Thêm"><i class="fas fa-plus"></i>
+                          <a class="btn btn-add btn-sm" href="add-new.php" title="Thêm"><i class="fas fa-plus"></i>
                             Thêm tin tức</a>
                         </div>
-                        <div class="col-sm-2">
-                          <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                              class="fas fa-trash-alt"></i> Xóa tất cả </a>
-                        </div>
-                      </div>
                     <table class="table table-hover table-bordered" id="sampleTable">
                         <thead>
                             <tr>
-                                <th width="10"><input type="checkbox" id="all"></th>
-                                <th>Mã tin tức</th>
+                                <th>ID tin tức</th>
                                 <th>Tác giả</th>
                                 <th>Tiêu đề</th>
                                 <th>Danh mục</th>
-                                <th>Loại</th>
                                 <th>Tagname</th>
                                 <th>Trạng thái</th>
                                 <th>Thời gian</th>
@@ -104,35 +97,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                <td>N01</td>
-                                <td>Nụ Kelmy</td>
-                                <td>Thí sinh không được thi quá 2 môn tự chọn tốt nghiệp THPT 2025</td>
-                                <td>Giáo dục</td>
-                                <td>Tuyển sinh</span></td>
-                                <td>Phương án thi tốt nghiệp</td>
-                                <td><div class="form-group1">
-                                  <label for="toggle-status"></label>
-                                  <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="toggle-status" name="toggle-status" checked>
-                                    <label class="custom-control-label" for="toggle-status">
-                                      <span id="status-icon" class="mr-2"></span>
-                                      <span id="status-text"></span>
-                                    </label>
-                                  </div>
-                                </div>
-                                  </td>
-                                <td>29/11/2023</td>
-                                <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                  onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                </button>
-                                <a href="edit-new.html">     
-                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                  data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
-                                </button></a>
-                              </td>
-                            </tr>
+                        <?php
+ 
+                        include 'model.php';
+                        $model = new News();
+                        $rows = $model->fetch();
+                        if(!empty($rows)){
+                          foreach($rows as $row){ 
+                        ?>
+                        <tr>
+                        <td><?php echo $row['news_id']; ?></td>
+                        <td><?php echo $row['full_name']; ?></td>
+                        <td><?php echo $row['title']; ?></td>
+                        <td><?php echo $row['name']; ?></td>
+                        <td><?php echo $row['content_tag']; ?></td>
+                        <td><?php echo $row['status_news']; ?></td>
+                        <td><?php echo $row['date']; ?></td>
+                        <td>
+                          <a href="deletenews.php?id=<?php echo $row['news_id']; ?>" class="badge badge-danger">Delete</a>
+                          <a href="edit-new.php?id=<?php echo $row['news_id']; ?>" class="badge badge-success">Edit</a>
+                        </td>
+                        </tr>
+
+                        <?php
+                        }
+                        }else{
+                        echo "no data";
+                        }
+                        ?>
                         </tbody>
                     </table>
                 </div>

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Sửa Tin</title>
+    <title>Thêm tin tức</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
     <!-- <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
@@ -54,69 +54,79 @@
     <main>
         <div class="mx-5 my-5 card w-100">
             <div class="card-header">
-                <h3>Sửa Tin</h3>
+                <h3>Thêm Tin tức</h3>
             </div>
-            <div class="card-body">
-                <form class="needs-validation" method="POST" novalidate>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name">Tiêu đề</label>
-                            <input type="text" class="form-control" id="name" name="name" value="Thi tốt nghiệp" required>
-                            <div class="invalid-feedback">
-                                Vui lòng không để trống
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="category">Danh mục</label>
-                            <select class="custom-select" id="category" name="category" required>
-                                <option selected disabled value="">Giáo dục</option>
-                                <option value="1">Bài viết</option>
-                                <option value="2">Thông báo</option>
-                                <option value="3">Sự kiện</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Vui lòng chọn
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="tags">Chọn Tags</label><br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="tag1" name="tags[]" value="Tag 1">
-                                <label class="form-check-label" for="tag1">Thi tốt nghiệp</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="tag2" name="tags[]" value="Tag 2">
-                                <label class="form-check-label" for="tag2">Phối đồ</label>
-                            </div>
+            <?php
+              include 'model.php';
+              $model = new News();
+              $insert = $model->insert();
 
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="image">Hình ảnh đại diện</label>
-                            <input type="text" class="form-control" id="image" name="image" required>
-                            <div class="invalid-feedback">
-                                Vui lòng không để trống
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="description">Tóm tắt</label>
-                            <textarea type="text" class="form-control" id="description" name="description" rows="3" required></textarea>
-                            <div class="invalid-feedback">
-                                Vui lòng không để trống
-                            </div>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="content">Nội dung</label>
-                            <textarea type="text" class="form-control" id="content" name="content" required></textarea>
-                            <div class="invalid-feedback">
-                                Vui lòng không để trống
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-save" type="button" style="background-color: rgb(166 236 171);
-                    color: rgb(1 123 10);font-weight: bold;">Lưu lại</button>
-                    <a class="btn btn-cancel" data-dismiss="modal" href="table-data-new.html" style="background-color: rgb(255 197 197);
-                    color: rgb(190, 40, 40);font-weight: bold;">Hủy bỏ</a>
-                </form>
+          ?>
+                    <form action="" method="post">
+        <div class="form-group">
+            <label for="">Tiêu đề</label>
+            <input type="text" name="title" class="form-control">
+            <div class="invalid-feedback">
+             Vui lòng không để trống</div>
+        </div>
+            <div class="form-group">
+            <label for="">Danh mục</label>
+            <select class="custom-select" id="category" name="category" required>
+                            <option selected disabled value="">Chọn danh mục</option>
+                             <?php
+                            // Gọi hàm để lấy danh sách vai trò từ cơ sở dữ liệu
+                            $new = new News(); // Thay thế 'User' bằng tên lớp hoặc phương thức tương ứng của bạn
+                            $categorys = $new->getCategory();
+
+                            // Duyệt qua mảng vai trò và tạo các option cho dropdown
+                            foreach ($categorys as $category) {
+                                $selected = ($category == $row['name']) ? 'selected' : '';
+                                echo "<option value='$category' $selected>$category</option>";
+                            }
+                            ?>
+            </select>
+            <div class="invalid-feedback">
+             Vui lòng không để trống</div>
+             <div class="form-group">
+            <label for="">Chọn Tags</label>
+            <select class="custom-select" id="tagname" name="content_tag" required>
+                            <option selected disabled value="">Chọn Tags</option>
+                             <?php
+                            // Gọi hàm để lấy danh sách vai trò từ cơ sở dữ liệu
+                            $new = new News(); // Thay thế 'User' bằng tên lớp hoặc phương thức tương ứng của bạn
+                            $tagnames = $new->getTag();
+
+                            // Duyệt qua mảng vai trò và tạo các option cho dropdown
+                            foreach ($tagnames as $tagname) {
+                                $selected = ($tagnames == $row['content_tag']) ? 'selected' : '';
+                                echo "<option value='$tagname' $selected>$tagname</option>";
+                            }
+                            ?>
+            </select>
+            <div class="invalid-feedback">
+             Vui lòng không để trống</div>
+        <div class="form-group">
+            <label for="">Hình ảnh</label>
+            <input type="text" name="image" class="form-control">
+            <div class="invalid-feedback">
+             Vui lòng không để trống</div>
+        </div>
+        <div class="form-group">
+            <label for="">Tóm tắt</label>
+            <textarea type="text" class="form-control" id="description" name="summary" rows="3" required></textarea>
+        <div class="invalid-feedback">
+             Vui lòng không để trống</div>
+        </div>
+             <div class="form-group">
+            <label for="">Nội dung</label>
+            <textarea type="text" class="form-control" id="content" name="content" rows="3" required></textarea>
+            <div class="invalid-feedback">
+             Vui lòng không để trống</div>
+        </div>
+            <div class="form-group">
+              <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+                
             </div>
         </div>
 

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Danh sách Tagname | Quản trị Admin</title>
+  <title>Danh sách bình luận | Quản trị Admin</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,24 +49,24 @@
     <hr>
     <ul class="app-menu">
 
-      <li><a class="app-menu__item " href="table-data-user.html"><i class='app-menu__icon bx bx-id-card'></i>
+      <li><a class="app-menu__item " href="table-data-user.php"><i class='app-menu__icon bx bx-id-card'></i>
           <span class="app-menu__label">Quản lý người dùng</span></a></li>
-      <li><a class="app-menu__item active" href="table-data-new.html"><i
+      <li><a class="app-menu__item active" href="table-data-new.php"><i
             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý tin tức</span></a>
       </li>
-      <li><a class="app-menu__item" href="table-data-category.html"><i class='app-menu__icon bx bx-task'></i><span
+      <li><a class="app-menu__item" href="table-data-category.php"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý danh mục</span></a></li>
-      <li><a class="app-menu__item" href="table-data-tag.html"><i class='app-menu__icon bx bx-run'></i><span
+      <li><a class="app-menu__item" href="table-data-tag.php"><i class='app-menu__icon bx bx-run'></i><span
             class="app-menu__label">Quản lý Tag
           </span></a></li>
-      <li><a class="app-menu__item" href="table-data-comment.html"><i class='app-menu__icon bx bx-dollar'></i><span
+      <li><a class="app-menu__item" href="table-data-comment.php"><i class='app-menu__icon bx bx-dollar'></i><span
             class="app-menu__label">Quản lý bình luận</span></a></li>
     </ul>
   </aside>
   <main class="app-content">
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb side">
-        <li class="breadcrumb-item active"><a href="#"><b>Danh sách Tagname</b></a></li>
+        <li class="breadcrumb-item active"><a href="table-data-comment.php"><b>Danh sách bình luận</b></a></li>
       </ul>
       <div id="clock"></div>
     </div>
@@ -75,45 +75,49 @@
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
-
             <div class="row element-button">
-              <div class="col-sm-2">
-
-                <a class="btn btn-add btn-sm" href="add-tag.html" title="Thêm"><i class="fas fa-plus"></i>
-                  Tạo mới</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                    class="fas fa-trash-alt"></i> Xóa tất cả </a>
-              </div>
-            </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
               id="sampleTable">
               <thead>
                 <tr>
-                  <th width="10"><input type="checkbox" id="all"></th>
-                  <th width="20">ID</th>
-                  <th width="300">Name Tag</th>
-                  <th width="20">Search</th>
-                  <th width="50">Tính năng</th>
+                  <th>ID</th>
+                  <th>Tác giả</th>
+                  <th>Bình luận</th>
+                  <th>Nguồn</th>
+                  <th>Trạng thái</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td>T01</td>
-                  <td>Thi tốt nghiệp</td>
-                  <td>Search</td>
-                          
-                  <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                    </button>
-                    <a href="edit-tag.html">      
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
-                    </button></a>
-                  </td>
+              <?php
+ 
+              include 'model.php';
+              $model = new Comment();
+              $rows = $model->comment();
+              if(!empty($rows)){
+                foreach($rows as $row){ 
+                  $query = "SELECT comments.comment_id, comments.content_cmt, comments.status_cmt, users.full_name, news.title
+                  FROM comments
+                  INNER JOIN users ON comments.user_id = users.user_id
+                  INNER JOIN news ON comments.news_id = news.news_id;
+                  ";
+              ?>   <tr>
+                <td><?php echo $row['comment_id']; ?></td>
+                <td><?php echo $row['full_name']; ?></td>
+                <td><?php echo $row['content_cmt']; ?></td>
+                <td><?php echo $row['title']; ?></td>
+                <td><?php echo $row['status_cmt']; ?></td>
+                <td>
+                <a href="deletecat.php?id=<?php echo $row['comment_id']; ?>" class="badge badge-danger">Delete</a>
+                <a href="edit-cmt.php?id=<?php echo $row['comment_id']; ?>" class="badge badge-success">Edit</a>
+                </td>
                 </tr>
+                <?php
+                }
+              }else{
+                echo "no data";
+            }
+              ?>
               </tbody>
             </table>
           </div>
@@ -121,6 +125,9 @@
       </div>
     </div>
   </main>
+
+
+
   <!-- Essential javascripts for application to work-->
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/popper.min.js"></script>
@@ -164,6 +171,17 @@
       e.stopImmediatePropagation();
     });
 
+    //EXCEL
+    // $(document).ready(function () {
+    //   $('#').DataTable({
+
+    //     dom: 'Bfrtip',
+    //     "buttons": [
+    //       'excel'
+    //     ]
+    //   });
+    // });
+
 
     //Thời Gian
     function time() {
@@ -205,8 +223,34 @@
         return i;
       }
     }
+    //In dữ liệu
+    var myApp = new function () {
+      this.printTable = function () {
+        var tab = document.getElementById('sampleTable');
+        var win = window.open('', '', 'height=700,width=700');
+        win.document.write(tab.outerHTML);
+        win.document.close();
+        win.print();
+      }
+    }
+    //     //Sao chép dữ liệu
+    //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
 
-    
+    // copyTextareaBtn.addEventListener('click', function(event) {
+    //   var copyTextarea = document.querySelector('.js-copytextarea');
+    //   copyTextarea.focus();
+    //   copyTextarea.select();
+
+    //   try {
+    //     var successful = document.execCommand('copy');
+    //     var msg = successful ? 'successful' : 'unsuccessful';
+    //     console.log('Copying text command was ' + msg);
+    //   } catch (err) {
+    //     console.log('Oops, unable to copy');
+    //   }
+    // });
+
+
     //Modal
     $("#show-emp").on("click", function () {
       $("#ModalUP").modal({ backdrop: false, keyboard: false })

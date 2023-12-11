@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,17 +51,17 @@
     <hr>
     <ul class="app-menu">
 
-      <li><a class="app-menu__item " href="table-data-user.html"><i class='app-menu__icon bx bx-id-card'></i>
+      <li><a class="app-menu__item " href="table-data-user.php"><i class='app-menu__icon bx bx-id-card'></i>
           <span class="app-menu__label">Quản lý người dùng</span></a></li>
-      <li><a class="app-menu__item active" href="table-data-new.html"><i
+      <li><a class="app-menu__item active" href="table-data-new.php"><i
             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý tin tức</span></a>
       </li>
       <li><a class="app-menu__item" href="table-data-category.html"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý danh mục</span></a></li>
-      <li><a class="app-menu__item" href="table-data-tag.html"><i class='app-menu__icon bx bx-run'></i><span
+      <li><a class="app-menu__item" href="table-data-tag.php"><i class='app-menu__icon bx bx-run'></i><span
             class="app-menu__label">Quản lý Tag
           </span></a></li>
-      <li><a class="app-menu__item" href="table-data-comment.html"><i class='app-menu__icon bx bx-dollar'></i><span
+      <li><a class="app-menu__item" href="table-data-comment.php"><i class='app-menu__icon bx bx-dollar'></i><span
             class="app-menu__label">Quản lý bình luận</span></a></li>
     </ul>
   </aside>
@@ -71,51 +73,57 @@
       <div id="clock"></div>
     </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="tile">
-          <div class="tile-body">
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
-              id="sampleTable">
-              <thead>
-                <tr>
-                  <th width="10"><input type="checkbox" id="all"></th>
-                  <th>ID</th>
-                  <th width="150">Họ và tên</th>
-                  <th width="20">Số điện thoại</th>
-                  <th width="300">Email</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Role</th>
-                  <th width="100">Tính năng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td>N01</td>
-                  <td>Hồ Thị Thanh Ngân</td>
-                  <td>0926737168</td>
-                  <td>ngan12@gmail.com</td>
-                  <td>ngan1299</td>
-                  <td>123456789</td>
-                  <td>Reader</td>
-                  <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                    </button>
-                    <a href="edit-user.html"> 
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
-                    </button></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile No.</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Action</th>
+                <!-- <th>Address</th>
+                <th>Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+ 
+                include 'model.php';
+                $model = new Model();
+                $rows = $model->fetch();
+                if(!empty($rows)){
+                  foreach($rows as $row){ 
+              ?>
+              <tr>
+                <td><?php echo $row['user_id']; ?></td>
+                <td><?php echo $row['full_name']; ?></td>
+                <td><?php echo $row['email']; ?></td>
+                <td><?php echo $row['phone_number']; ?></td>
+                <td><?php echo $row['username']; ?></td>
+                <td><?php echo $row['password']; ?></td>
+                <td><?php echo $row['role']; ?></td>
+                <td>
+                  <a href="delete.php?id=<?php echo $row['user_id']; ?>" class="badge badge-danger">Delete</a>
+                  <a href="edit-user.php?id=<?php echo $row['user_id']; ?>" class="badge badge-success">Edit</a>
+                </td>
+              </tr>
+ 
+              <?php
+                }
+              }else{
+                echo "no data";
+            }
+              ?>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </main>
+
 
 
 
@@ -135,45 +143,6 @@
   <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
   <script type="text/javascript">$('#sampleTable').DataTable();</script>
   <script>
-    function deleteRow(r) {
-      var i = r.parentNode.parentNode.rowIndex;
-      document.getElementById("myTable").deleteRow(i);
-    }
-    jQuery(function () {
-      jQuery(".trash").click(function () {
-        swal({
-          title: "Cảnh báo",
-         
-          text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
-          buttons: ["Hủy bỏ", "Đồng ý"],
-        })
-          .then((willDelete) => {
-            if (willDelete) {
-              swal("Đã xóa thành công.!", {
-                
-              });
-            }
-          });
-      });
-    });
-    oTable = $('#sampleTable').dataTable();
-    $('#all').click(function (e) {
-      $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-      e.stopImmediatePropagation();
-    });
-
-    //EXCEL
-    // $(document).ready(function () {
-    //   $('#').DataTable({
-
-    //     dom: 'Bfrtip',
-    //     "buttons": [
-    //       'excel'
-    //     ]
-    //   });
-    // });
-
-
     //Thời Gian
     function time() {
       var today = new Date();
@@ -214,32 +183,7 @@
         return i;
       }
     }
-    //In dữ liệu
-    var myApp = new function () {
-      this.printTable = function () {
-        var tab = document.getElementById('sampleTable');
-        var win = window.open('', '', 'height=700,width=700');
-        win.document.write(tab.outerHTML);
-        win.document.close();
-        win.print();
-      }
-    }
-    //     //Sao chép dữ liệu
-    //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
 
-    // copyTextareaBtn.addEventListener('click', function(event) {
-    //   var copyTextarea = document.querySelector('.js-copytextarea');
-    //   copyTextarea.focus();
-    //   copyTextarea.select();
-
-    //   try {
-    //     var successful = document.execCommand('copy');
-    //     var msg = successful ? 'successful' : 'unsuccessful';
-    //     console.log('Copying text command was ' + msg);
-    //   } catch (err) {
-    //     console.log('Oops, unable to copy');
-    //   }
-    // });
 
 
     //Modal
